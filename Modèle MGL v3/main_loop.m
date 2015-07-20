@@ -1,31 +1,8 @@
 % Loop de calcul de plusieurs positions
-%Ne produit pas de graphique et ne sauvergarde pas les front d'ondes
+%Ne sauvergarde pas les front d'ondes
 clear
-lambda = 500E-9;
-%Nombre de rayon simulé par axe (toujours impair)
-n = 501;
-%Vecteur de points à analyser sur l'image
-r = linspace(0,0.5,20);
-theta = linspace(0,4*pi,20);
-% x = linspace(0,0.5,20);
-% y = zeros(1,20);
-[x,y] = pol2cart(theta,r);
-% x = 0;
-% y = 0;
-%Distance de la surface S. 1: pupille, 0: plan image
-z = 0.2;
-%F number du faisceau
-f_number = 15;
-%Centre du grandissement
-cx = 0;
-cy = 0;
-%Grandissement
-g1 = 2;
-g2 = 1;
-%Rayon de la surface à grandir. Le rayon final sera r1*g.
-r1 = 0.1;
-%Rayon de la zone de redressement
-r2 = 0.3;
+%Paramètre de configuration de la simulation
+run config.m
 
 %Calcul de la forme générale du grandissement
 n_vis = 151;
@@ -33,12 +10,12 @@ n_vis = 151;
 [visualisation(1).dist,visualisation(2).dist, visualisation(1).delta,visualisation(2).delta] = gen_dist( n_vis,cx,cy,r1,r2,g1,g2,visualisation(1).img,visualisation(2).img);
 Px = visualisation(1).dist;
 Py = visualisation(2).dist;
-figure(4);plot(reshape(Px,[numel(Px),1]),reshape(Py,[numel(Py),1]),'.');hold on;
+figure(4);plot(echelle_systeme.*reshape(Px,[numel(Px),1]),echelle_systeme.*reshape(Py,[numel(Py),1]),'.');hold on;
 
 %Calcul de la forme de l'OPD total de S
 [ visualisation ] = deviation( visualisation,z );
 [ opd_visualisation ] = masque_opd( visualisation,n_vis);
-figure(6);mesh(linspace(-1,1,n_vis),linspace(-1,1,n_vis),opd_visualisation);
+figure(6);mesh(echelle_systeme.*linspace(-1,1,n_vis),echelle_systeme.*linspace(-1,1,n_vis),opd_visualisation);
 
 if max(max(abs(opd_visualisation))) > z
     warning('La variation maximale d''opd est plus grande que la distance à l''image')
@@ -130,18 +107,18 @@ for k = 1:numel(x)
     % title('PSF sans tilt');
     
     %Récupération des données
-    err_rms(k) = opd.err_rms;
+    err_rms(k) = echelle_systeme.*opd.err_rms;
     strehl_ratio(k) = psf.strehl_ratio;
     zernike(k,:) = opd.zernike;
     x_reel(k) = rayon_chef(1).dist((n-1)/2+1,(n-1)/2+1);
     y_reel(k) = rayon_chef(2).dist((n-1)/2+1,(n-1)/2+1);
-    foyer(k) = opd.foyer;
+    foyer(k) = echelle_systeme.*opd.foyer;
     
 end
 
 %% Figures
 
-var_fig = sqrt(x_reel.^2+y_reel.^2);
+var_fig = echelle_systeme.*sqrt(x_reel.^2+y_reel.^2);
 figure(1);plot(var_fig,err_rms/lambda)
 xlabel('Rayon');ylabel('RMS error [lambda]')
 figure(2);plot(var_fig,strehl_ratio);ylim([0 1])
@@ -151,11 +128,11 @@ figure(3);plot(var_fig,zernike(:,4),var_fig,zernike(:,5),var_fig,zernike(:,6))
 xlabel('Rayon');ylabel('Coeficient de Zernike')
 legend('Defocus','Astigmatisme x','Astigmatisme y')
 %legend('Defocus','Astigmatisme x + y')
-figure(4);plot(x,y,'-o',x_reel,y_reel,'-o');
+figure(4);plot(echelle_systeme.*x,echelle_systeme.*y,'-o',echelle_systeme.*x_reel,echelle_systeme.*y_reel,'-o');
 xlabel('Coordonnée image x');ylabel('Coordonnée image y')
 legend('grille','Avant grandissement','Après grandissement');hold off;
 figure(5);plot(var_fig,zernike(:,7),var_fig,zernike(:,8),var_fig,zernike(:,9),var_fig,zernike(:,10),...
     var_fig,zernike(:,11),var_fig,zernike(:,12),var_fig,zernike(:,13),var_fig,zernike(:,14),var_fig,zernike(:,15))
 xlabel('Rayon');ylabel('Coeficient de Zernike')
-figure(7);plot(var_fig,foyer-z)
+figure(7);plot(var_fig,foyer-echelle_systeme.*z)
 xlabel('Rayon');ylabel('Distance de meilleur foyer')
