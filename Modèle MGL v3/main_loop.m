@@ -1,6 +1,8 @@
 % Loop de calcul de plusieurs positions
 %Ne sauvergarde pas les front d'ondes
 clear
+%Path de sauvegarde
+save_path = 'C:\Users\Alex Côté\Documents\Microscopie à grandissement localisé\Simulation\20 juillet 2015';
 %Paramètre de configuration de la simulation
 run config.m
 
@@ -16,6 +18,8 @@ figure(4);plot(echelle_systeme.*reshape(Px,[numel(Px),1]),echelle_systeme.*resha
 [ visualisation ] = deviation( visualisation,z );
 [ opd_visualisation ] = masque_opd( visualisation,n_vis);
 figure(6);mesh(echelle_systeme.*linspace(-1,1,n_vis),echelle_systeme.*linspace(-1,1,n_vis),opd_visualisation);
+xlabel('x');ylabel('y'),zlabel('OPD');
+title('OPD à la surface S')
 
 if max(max(abs(opd_visualisation))) > z
     warning('La variation maximale d''opd est plus grande que la distance à l''image')
@@ -118,7 +122,7 @@ end
 
 %% Figures
 
-var_fig = echelle_systeme.*sqrt(x_reel.^2+y_reel.^2);
+var_fig = echelle_systeme.*sqrt((x_reel-cx).^2+(y_reel-cy).^2);
 figure(1);plot(var_fig,err_rms/lambda)
 xlabel('Rayon');ylabel('RMS error [lambda]')
 figure(2);plot(var_fig,strehl_ratio);ylim([0 1])
