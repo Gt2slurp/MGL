@@ -20,8 +20,8 @@ r2 = 0.3;
 %Nombre de rayon simulé par axe (toujours impair)
 n = 501;
 %Vecteur de points à analyser sur l'image
-r = linspace(0,0.4,20);
-theta = linspace(0,4*pi,20);
+r = linspace(0,0.4,30);
+theta = linspace(0,4*pi,30);
 % x = linspace(0,0.5,20);
 % y = zeros(1,20);
 [x,y] = pol2cart(theta,r);

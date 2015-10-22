@@ -1,8 +1,7 @@
 % Loop de calcul de plusieurs positions
 %Ne sauvergarde pas les front d'ondes
 clear
-%Path de sauvegarde
-save_path = 'C:\Users\Alex Côté\Documents\Microscopie à grandissement localisé\Simulation\20 juillet 2015';
+
 %Paramètre de configuration de la simulation
 run config.m
 
@@ -111,32 +110,54 @@ for k = 1:numel(x)
     % title('PSF sans tilt');
     
     %Récupération des données
-    err_rms(k) = echelle_systeme.*opd.err_rms;
-    strehl_ratio(k) = psf.strehl_ratio;
-    zernike(k,:) = opd.zernike;
-    x_reel(k) = rayon_chef(1).dist((n-1)/2+1,(n-1)/2+1);
-    y_reel(k) = rayon_chef(2).dist((n-1)/2+1,(n-1)/2+1);
-    foyer(k) = echelle_systeme.*opd.foyer;
+    save_struct.err_rms(k) = echelle_systeme.*opd.err_rms;
+    save_struct.strehl_ratio(k) = psf.strehl_ratio;
+    save_struct.zernike(k,:) = opd.zernike;
+    save_struct.x_reel(k) = rayon_chef(1).dist((n-1)/2+1,(n-1)/2+1);
+    save_struct.y_reel(k) = rayon_chef(2).dist((n-1)/2+1,(n-1)/2+1);
+    save_struct.foyer(k) = echelle_systeme.*opd.foyer;
     
 end
 
 %% Figures
 
-var_fig = echelle_systeme.*sqrt((x_reel-cx).^2+(y_reel-cy).^2);
-figure(1);plot(var_fig,err_rms/lambda)
+var_fig = echelle_systeme.*sqrt((save_struct.x_reel-cx).^2+(save_struct.y_reel-cy).^2);
+figure(1);plot(var_fig,save_struct.err_rms/lambda)
 xlabel('Rayon');ylabel('RMS error [lambda]')
-figure(2);plot(var_fig,strehl_ratio);ylim([0 1])
+figure(2);plot(var_fig,save_struct.strehl_ratio);ylim([0 1])
 xlabel('Rayon');ylabel('Strehl Ratio')
-figure(3);plot(var_fig,zernike(:,4),var_fig,zernike(:,5),var_fig,zernike(:,6))
+figure(3);plot(var_fig,save_struct.zernike(:,4),var_fig,save_struct.zernike(:,5),var_fig,save_struct.zernike(:,6))
 %figure(3);plot(var_fig,zernike(:,4),var_fig,zernike(:,5)+ zernike(:,6))
 xlabel('Rayon');ylabel('Coeficient de Zernike')
 legend('Defocus','Astigmatisme x','Astigmatisme y')
 %legend('Defocus','Astigmatisme x + y')
-figure(4);plot(echelle_systeme.*x,echelle_systeme.*y,'-o',echelle_systeme.*x_reel,echelle_systeme.*y_reel,'-o');
+figure(4);plot(echelle_systeme.*x,echelle_systeme.*y,'-o',echelle_systeme.*save_struct.x_reel,echelle_systeme.*save_struct.y_reel,'-o');
 xlabel('Coordonnée image x');ylabel('Coordonnée image y')
 legend('grille','Avant grandissement','Après grandissement');hold off;
-figure(5);plot(var_fig,zernike(:,7),var_fig,zernike(:,8),var_fig,zernike(:,9),var_fig,zernike(:,10),...
-    var_fig,zernike(:,11),var_fig,zernike(:,12),var_fig,zernike(:,13),var_fig,zernike(:,14),var_fig,zernike(:,15))
+figure(5);plot(var_fig,save_struct.zernike(:,7),var_fig,save_struct.zernike(:,8),var_fig,save_struct.zernike(:,9),var_fig,save_struct.zernike(:,10),...
+    var_fig,save_struct.zernike(:,11),var_fig,save_struct.zernike(:,12),var_fig,save_struct.zernike(:,13),var_fig,save_struct.zernike(:,14),var_fig,save_struct.zernike(:,15))
 xlabel('Rayon');ylabel('Coeficient de Zernike')
-figure(7);plot(var_fig,foyer-echelle_systeme.*z)
+figure(7);plot(var_fig,save_struct.foyer-echelle_systeme.*z)
 xlabel('Rayon');ylabel('Distance de meilleur foyer')
+
+%% Sauvegarde
+
+%Path de sauvegarde
+save_path = 'C:\Users\Alex Côté\Documents\GitHub\MGL\Data\mgl_data';
+
+%Ajout des informations importantes dans la structure
+save_struct.cx = cx;
+save_struct.cy = cy;
+save_struct.echelle_systeme = 0.2;
+save_struct.z = z;
+save_struct.f_number = f_number;
+save_struct.g1 = g1;
+save_struct.g2 = g2;
+save_struct.r1 = r1;
+save_struct.r2 = r2;
+save_struct.x = x;
+save_struct.y = y;
+
+load(save_path);
+data_struct(end+1) = save_struct;
+save(save_path,'data_struct');
