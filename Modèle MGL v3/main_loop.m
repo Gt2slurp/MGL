@@ -8,7 +8,12 @@ run config.m
 %Calcul de la forme générale du grandissement
 n_vis = 151;
 [visualisation(1).img,visualisation(2).img] = meshgrid(linspace(-1,1,n_vis),linspace(-1,1,n_vis));
-[visualisation(1).dist,visualisation(2).dist, visualisation(1).delta,visualisation(2).delta] = gen_dist( n_vis,cx,cy,r1,r2,g1,g2,visualisation(1).img,visualisation(2).img);
+switch type_dist
+    case 'quadratique'
+        [visualisation(1).dist,visualisation(2).dist, visualisation(1).delta,visualisation(2).delta] = gen_dist( n_vis,cx,cy,r1,r2,g1,g2,visualisation(1).img,visualisation(2).img);
+    case 'gaussien'
+        [visualisation(1).dist,visualisation(2).dist, visualisation(1).delta,visualisation(2).delta] = gen_dist_gauss( n_vis,cx,cy,r1,r2,g1,g2,visualisation(1).img,visualisation(2).img);
+end
 Px = visualisation(1).dist;
 Py = visualisation(2).dist;
 figure(4);plot(echelle_systeme.*reshape(Px,[numel(Px),1]),echelle_systeme.*reshape(Py,[numel(Py),1]),'.');hold on;
@@ -149,7 +154,9 @@ xlabel('Rayon');ylabel('Distance de meilleur foyer')
 %% Sauvegarde
 
 %Path de sauvegarde
-save_path = 'C:\Users\Alex Côté\Documents\GitHub\MGL\Data\mgl_data';
+save_path = 'C:\Users\Alex Côté\Documents\GitHub\MGL\Data\mgl_data_test';
+
+
 
 %Ajout des informations importantes dans la structure
 save_struct.cx = cx;
@@ -163,7 +170,14 @@ save_struct.r1 = r1;
 save_struct.r2 = r2;
 save_struct.x = x;
 save_struct.y = y;
+save_struct.type_dist = type_dist;
 
-load(save_path);
-data_struct(end+1) = save_struct;
-save(save_path,'data_struct');
+%Vérification si la structure de sauvegarde existe
+if exist(save_path,'file')
+    load(save_path);
+    data_struct(end+1) = save_struct;
+    save(save_path,'data_struct');
+else
+    data_struct = save_struct;
+    save(save_path,'data_struct');
+end
