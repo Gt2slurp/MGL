@@ -50,7 +50,13 @@ for k = 1:numel(x)
     %Profil de distortion
     %dist: Point d'arrivée du rayon avec grandissement
     %delta: Différence avec les points originaux
-    [ rayon_chef(1).dist, rayon_chef(2).dist , rayon_chef(1).delta, rayon_chef(2).delta] = gen_dist( n,cx,cy,r1,r2,g1,g2,rayon_chef(1).img,rayon_chef(2).img);
+    switch type_dist
+        case 'quadratique'
+        [ rayon_chef(1).dist, rayon_chef(2).dist , rayon_chef(1).delta, rayon_chef(2).delta] = gen_dist( n,cx,cy,r1,r2,g1,g2,rayon_chef(1).img,rayon_chef(2).img);
+        case 'gaussien'
+        [ rayon_chef(1).dist, rayon_chef(2).dist , rayon_chef(1).delta, rayon_chef(2).delta] = gen_dist_gauss( n,cx,cy,r1,r2,g1,g2,rayon_chef(1).img,rayon_chef(2).img);
+
+    end
     %Illustration de la distortion
 
     

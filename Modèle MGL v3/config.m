@@ -17,6 +17,8 @@ g2 = 1;
 r1 = 0.1;
 %Rayon de la zone de redressement
 r2 = 0.3;
+%Type de profil de distorsion (gaussien ou quadratique)
+type_dist = 'gaussien';
 %Nombre de rayon simulé par axe (toujours impair)
 n = 501;
 %Vecteur de points à analyser sur l'image
