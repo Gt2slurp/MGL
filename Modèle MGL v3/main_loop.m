@@ -20,7 +20,12 @@ figure(4);plot(echelle_systeme.*reshape(Px,[numel(Px),1]),echelle_systeme.*resha
 
 %Calcul de la forme de l'OPD total de S
 [ visualisation ] = deviation( visualisation,z );
-[ opd_visualisation ] = masque_opd( visualisation,n_vis);
+switch type_dist
+    case 'quadratique'
+        [ opd_visualisation ] = masque_opd( visualisation,n_vis);
+    case 'gaussien'
+        [ opd_visualisation ] = masque_opd_gauss( visualisation,g1,g2,r1,r2,n);
+end
 figure(6);mesh(echelle_systeme.*linspace(-1,1,n_vis),echelle_systeme.*linspace(-1,1,n_vis),opd_visualisation);
 xlabel('x');ylabel('y'),zlabel('OPD');
 title('OPD à la surface S')
@@ -69,13 +74,20 @@ for k = 1:numel(x)
     [ rayon_chef ] = deviation( rayon_chef,z );
     
     %Calcul de l'OPD généré par la surface S
-    [ opd.s ] = masque_opd( rayon_chef,n);
+    switch type_dist
+        case 'quadratique'
+            [ opd.s ] = masque_opd( rayon_chef,n);
+        case 'gaussien'
+            %[ opd.s ] = masque_opd_gauss( rayon_chef,g1,g2,r1,r2,n);
+            [ opd.s ] = masque_opd( rayon_chef,n);
+    end
     
     %Calcul de l'OPD généré par l'angle du rayon chef du faisceau original
     opd.tilt = opd_tilt(ray_fan,f_number,z,n);
     
     %Calcul de l'opd total et du tilt effectif
     opd = opd_calc_v2(opd,ray_fan,z,n);
+    
     % figure;subplot(2,2,1);mesh(opd.total);
     % title('OPD total à la surface S');
     % subplot(2,2,2);mesh(opd.st);
@@ -154,11 +166,12 @@ xlabel('Rayon');ylabel('Distance de meilleur foyer')
 %% Sauvegarde
 
 %Path de sauvegarde
-save_path = 'C:\Users\Alex Côté\Documents\GitHub\MGL\Data\mgl_data_test';
+save_path = 'C:\Users\Alex Côté\Documents\GitHub\MGL\Data\mgl_data_test.mat';
 
 
 
 %Ajout des informations importantes dans la structure
+save_struct.var_fig = var_fig;
 save_struct.cx = cx;
 save_struct.cy = cy;
 save_struct.echelle_systeme = 0.2;
