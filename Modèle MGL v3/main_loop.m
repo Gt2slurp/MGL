@@ -194,3 +194,8 @@ else
     data_struct = save_struct;
     save(save_path,'data_struct');
 end
+
+%% Export .DAT
+
+zemax_phase_dat( 'C:\Users\Alex Côté\Documents\Zemax\Objects\Grid Files\test.dat', opd_visualisation./lambda , echelle_systeme,echelle_systeme);
+
