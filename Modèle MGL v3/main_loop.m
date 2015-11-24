@@ -6,7 +6,7 @@ clear
 run config.m
 
 %Calcul de la forme générale du grandissement
-n_vis = 151;
+n_vis = 101;
 [visualisation(1).img,visualisation(2).img] = meshgrid(linspace(-1,1,n_vis),linspace(-1,1,n_vis));
 switch type_dist
     case 'quadratique'

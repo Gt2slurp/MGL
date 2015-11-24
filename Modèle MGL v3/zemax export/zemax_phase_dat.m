@@ -15,7 +15,7 @@ ny = num2str(size(opd,2),'%u');
 delx = num2str(taille_max_x./size(opd,1),'%f');
 dely = num2str(taille_max_y./size(opd,2),'%f');
 
-str_vect = [ny,' ',ny,' ',delx,' ',dely,' ',unitflag,' ',xdec,' ',ydec,'\n'];
+str_vect = [nx,' ',ny,' ',delx,' ',dely,' ',unitflag,' ',xdec,' ',ydec,'\n'];
 
 
 
@@ -53,3 +53,4 @@ FileID = fopen(path,'w');
 fprintf(FileID,str_vect);
 %Fermeture du fichier
 fclose(FileID);
+end
