@@ -12,8 +12,7 @@ s = linspace(0,s_max.*sqrt(2),n);
 G_eval = G(s./(1-z./l));
 a = 1./(z.*(1-z./l));
 
-W = a.*cumtrapz(s.*(G_eval-1))./n;
-
+W = a.*cumtrapz(s,s.*(G_eval-1));
 %Normalisation à zéro sur le bord
 W = W-W(end);
 end

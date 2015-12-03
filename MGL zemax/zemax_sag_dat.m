@@ -4,7 +4,7 @@ function [  ] = zemax_sag_dat( path, opd , taille_max_x, taille_max_y, n1, n2 )
 
 %Conversion from opd to sag
 delta_n = n2-n1;
-sag = opd./delta_n;
+sag = -opd./delta_n;
 
 %Paramètre de la première ligne du fichier DAT
 %indicate the units of the data: 0 for mm, 1 for cm, 2 for in, and 3 for meters
@@ -25,23 +25,18 @@ str_vect = [nx,' ',ny,' ',delx,' ',dely,' ',unitflag,' ',xdec,' ',ydec,'\n'];
 %fprintf(FileID,str_vect);
 
 %Paramètre pour chaque point
-[dopddy,dopddx] = gradient(sag);
+[dopddy,dopddx] = gradient(sag,taille_max_x./size(sag,1),taille_max_y./size(sag,2));
 %Dérivé croisée
 
-dopddx = -dopddx; %Parce que sinon c'est pas du bon sens...
-dopddxdy = gradient(dopddy);
+%dopddx = -dopddx; %Parce que sinon c'est pas du bon sens...
+dopddy = -dopddy;
+dopddxdy = gradient(dopddy,taille_max_x./size(sag,1));
+%dopddxdy = -dopddxdy;
 
-sag = -sag;
 opd_ligne = reshape(sag,1,numel(sag));
 dopddx_ligne = reshape(dopddx,1,numel(dopddx));
 dopddy_ligne = reshape(dopddy,1,numel(dopddy));
 dopddxdy_ligne = reshape(dopddxdy,1,numel(dopddxdy));
-
-%Égale à zéro les données plus petite que la précision machine
-% opd_ligne = opd_ligne.*(opd_ligne > 1E-16);
-% dopddx_ligne = dopddx_ligne.*(dopddx_ligne > 1E-16);
-% dopddy_ligne = dopddy_ligne.*(dopddy_ligne > 1E-16);
-% dopddxdy_ligne = dopddxdy_ligne.*(dopddxdy_ligne > 1E-16);
 
 for k = 1:numel(opd_ligne)
     a = num2str(opd_ligne(k),'%e');

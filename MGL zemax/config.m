@@ -2,25 +2,25 @@
 %Distance focale du système 100mm
 f = 100;
 %Distance de la surface S. 1: pupille, 0: plan image
-z = 0.1*f;
+z = 0.045*f;
 %F number du faisceau
 f_number = 15;
 %Centre du grandissement
 cx = 0;
 cy = 0;
 %Grandissement
-g1 = 1.1;
+g1 = 2;
 g2 = 1;
 %Champ de vu maximal
-hfov = f*tan(deg2rad(15));
+hfov = f*tan(deg2rad(10));
 %Rayon de la surface à grandir. Le rayon final sera r1*g.
-r1 = f*tan(deg2rad(2));
+r1 = f*tan(deg2rad(1));
 %Rayon de la zone de redressement
-r2 = f*tan(deg2rad(3));
+r2 = f*tan(deg2rad(5));
 %Type de profil de distorsion (gaussien ou quadratique)
-type_dist = 'gaussien';
+type_dist = 'quadratique';
 %Nombre de point calculé par axe
-n = 200;
+n = 400;
 
 
 
