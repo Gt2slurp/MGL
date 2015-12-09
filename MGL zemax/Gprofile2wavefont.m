@@ -9,11 +9,19 @@ s = linspace(0,s_max.*sqrt(2),n);
 
 %G est une fonction
 
-G_eval = G(s./(1-z./l));
-a = 1./(z.*(1-z./l));
+%Paraxial
+% G_eval = G(s./(1-z./l));
+% a = 1./(z.*(1-z./l));
+% W = a.*cumtrapz(s,s.*(G_eval-1));
 
-W = a.*cumtrapz(s,s.*(G_eval-1));
+%Réel
+r = s./(1-z./l);
+int = tan(atan((r.*(G(r)-1))./z + r./l) - atan(r./l));
+W = cumtrapz(s,int);
+
+
 %Normalisation à zéro sur le bord
 W = W-W(end);
+
 end
 
