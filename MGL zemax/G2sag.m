@@ -58,16 +58,16 @@ function [ sag,l,s,z,diff ] = G2sag( f,z,n1,n2,G,s_max, n_pts )
 end
 
 %Fonction qui résoue la fonction transcendante à chaque point
-function theta_N = solve_snell(theta_1, theta_2, n1, n2)
-
-theta_N = zeros(1,numel(theta_1));
-
-for k = 1:numel(theta_1)
-    loi_snell = @(theta_N) n1.*sin(theta_1(k)-theta_N) - n2.*sin(theta_2(k)-theta_N);
-    theta_N(k) = fzero(loi_snell,0.5);
-end
-
-end
+% function theta_N = solve_snell(theta_1, theta_2, n1, n2)
+% 
+% theta_N = zeros(1,numel(theta_1));
+% 
+% for k = 1:numel(theta_1)
+%     loi_snell = @(theta_N) n1.*sin(theta_1(k)-theta_N) - n2.*sin(theta_2(k)-theta_N);
+%     theta_N(k) = fzero(loi_snell,0.5);s
+% end
+% 
+% end
 
 function dist = dist_check(sag,theta_1, theta_N,s,r,n1,n2,z)
 

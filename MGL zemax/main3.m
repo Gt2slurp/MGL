@@ -19,7 +19,8 @@ n_profile = 1000;
 
 n1 = 1; %air
 n2 = 1.53; %~BK7
-[ sag_profile ,l, s_profile,z,diff ] = G2sag( f,z,n1,n2,G,s_max, n_profile );
+%[ sag_profile ,l, s_profile,z,diff ] = G2sag( f,z,n1,n2,G,s_max, n_profile );
+[ sag_profile, l, s_profile, diff ] = G2sag_v2( f,z,n1,n2,G,s_max, n_profile );
 
 %Grille d'évaluation de S
 [sx,sy] = meshgrid(linspace(-s_max,s_max,n),linspace(-s_max,s_max,n));
