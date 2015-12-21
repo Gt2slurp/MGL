@@ -13,11 +13,9 @@ l = f + z.*(n2-n1)./n2;
 
 %Tolérance de la boucle
 tol = 1E-15;
-diff = 1;
-%f_eval = (r.*G(r)-s);
 old_sag = 0;
 k = 1;
-iter_max = 25;
+iter_max = 50;
 diff = ones(1,iter_max);
 figure(4);hold on;
 
@@ -43,8 +41,8 @@ while diff(k) > tol
 %     sag = sag + delta_l;
     
     %Condition d'existance physique de la pièce
-    if min(sag) < 0.5
-        sag = sag - min(sag) + 0.5;        
+    if min(sag) < 0
+        sag = sag - min(sag);        
     end
     
     %Différence pour la condition de la boucle

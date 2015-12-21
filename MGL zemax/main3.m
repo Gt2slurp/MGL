@@ -29,13 +29,25 @@ sr = sqrt(sx.^2+sy.^2);
 sag = interp1(s_profile,sag_profile,sr);
 figure(2);mesh(sx,sy,sag)
 
-disp('Dimensions finales')
-disp('air =');
-disp(f-z);
-disp('verre');
-disp(l - f + z)
+% disp('Dimensions finales')
+% disp('air =');
+% disp(f-z);
+% disp('verre');
+% disp(l - f + z)
 
 
 %% Exportation sag direct
-path = 'C:\Users\Alex Côté\Documents\Zemax\Objects\Grid Files\sag_reel.dat';
+path = 'C:\Users\Alex Côté\Documents\Zemax\Objects\Grid Files\sag_quadratique_1_6.dat';
 zemax_sag_dat_2( path, -sag , 2*s_max, 2*s_max);
+
+%% Générer les graphiques
+%Distortion
+figure(3); plot(distortion, linspace(0,10,1000),zemax(:,6)-min(zemax(:,6)),zemax(:,1));
+xlabel('Distortion')
+ylabel('FoV [degree]')
+legend('Demandé','Calculé par Zemax')
+
+%Sag
+figure;plot(s_profile,sag_profile)
+xlabel('Rayon')
+ylabel('Sag')
