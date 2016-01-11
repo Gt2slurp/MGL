@@ -42,17 +42,26 @@ while diff(k) > tol
     theta_n1 = solve_snell(theta_1,theta_2, n1, n2);
     theta_n2 = solve_snell(theta_2,theta_3, n2, n1);
     
-    %Calcul du sag (intégration de seulement la moitier pour la stabilité)
+    %Calcul du sag (intégration de seulement la moitié pour la stabilité)
     sag1 = sag1./2 + cumtrapz(s1,tan(theta_n1))./2;
     sag2 = sag2./2 + cumtrapz(s2,tan(theta_n2))./2;
     
     %Condition d'existance physique de la pièce
-    if min(sag1) < 0.5
-        sag1 = sag1 - min(sag1) + 0.5;        
+%     if min(sag2+sag1) < 0
+%         sag1 = sag1 + min(sag2+sag1)./2;
+%         sag2 = sag2 + min(sag2+sag1)./2;
+%     end
+    if min(sag1) < 0
+        sag1 = sag1 - min(sag1);        
     end
-    if min(sag2) < 0.5
-        sag2 = sag2 - min(sag2) + 0.5;        
+    if min(sag2) < 0
+        sag2 = sag2 - min(sag2);        
     end
+    
+% 
+%     sag1 = sag1 - mean(sag1+sag2);
+%     sag2 = sag2 + mean(sag1+sag2);
+%     
     
     %Différence pour la condition de la boucle
     diff(k) = (sum(abs(sag1 - old_sag1)) + sum(abs(sag2 - old_sag2)))./(2*n_pts);

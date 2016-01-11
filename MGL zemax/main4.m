@@ -19,7 +19,7 @@ n_profile = 1000;
 
 n1 = 1; %air
 n2 = 1.53; %~BK7
-f2 = 40;
+f2 = 10;
 [ sag_profile1, sag_profile2, l, s_profile1,s_profile2, diff ] = G2double_sag( f,f2,z,n1,n2,G,s_max,hfov, n_profile );
 
 %Grille d'évaluation de S

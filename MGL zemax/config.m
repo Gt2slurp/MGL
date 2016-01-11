@@ -14,9 +14,9 @@ g2 = 1;
 %Champ de vu maximal
 hfov = f*tan(deg2rad(10));
 %Rayon de la surface à grandir. Le rayon final sera r1*g.
-r1 = f*tan(deg2rad(1));
+r1 = f*tan(deg2rad(2));
 %Rayon de la zone de redressement
-r2 = f*tan(deg2rad(6));
+r2 = f*tan(deg2rad(5));
 %Type de profil de distorsion (gaussien ou quadratique)
 type_dist = 'quadratique';
 %Nombre de point calculé par axe

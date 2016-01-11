@@ -18,7 +18,7 @@ figure(3);plot(distortion, linspace(0,hfov,1000));
 n_profile = 1000;
 
 n1 = 1; %air
-n2 = 1.53; %~BK7
+n2 = 1.5185; %~BK7
 %[ sag_profile ,l, s_profile,z,diff ] = G2sag( f,z,n1,n2,G,s_max, n_profile );
 [ sag_profile, l, s_profile, diff ] = G2sag_v2( f,z,n1,n2,G,s_max, n_profile );
 
@@ -37,7 +37,7 @@ figure(2);mesh(sx,sy,sag)
 
 
 %% Exportation sag direct
-path = 'C:\Users\Alex Côté\Documents\Zemax\Objects\Grid Files\sag_quadratique_1_6.dat';
+path = 'C:\Users\Alex Côté\Documents\Zemax\Objects\Grid Files\sag_gaussien_1_6.dat';
 zemax_sag_dat_2( path, -sag , 2*s_max, 2*s_max);
 
 %% Générer les graphiques
