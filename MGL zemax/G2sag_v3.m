@@ -1,4 +1,4 @@
-function [ sag,l,s,diff,x_croisement,y_croisement ] = G2sag_v2( f,z,n1,n2,G,s_max, n_pts )
+function [ sag,l,s,diff,sag2,s2 ] = G2sag_v3( f,z,n1,n2,G,s_max, n_pts )
 %G2SAG_V2 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -33,7 +33,7 @@ while diff(k) > tol
     theta_n = solve_snell(theta_1,theta_2, n1, n2);
     
     %Calcul du sag (intégration de seulement la moitier pour la stabilité)
-    sag = sag./2 + cumtrapz(s,tan(theta_n))./2;
+    sag = sag./2 + (cumtrapz(s,tan(theta_n)))./2;
     plot(sag)
     %Ajustement du sag pour garder l'image en moyenne au foyer paraxiale
 %     delta_l  = l - (f + sag(end).*(n2-n1)./n2);
@@ -54,7 +54,17 @@ while diff(k) > tol
     
 end
 
-[ x_croisement,y_croisement ] = courbure_champ_v2( r,s,sag,theta_n,f,n2 );
+%Création de la deuxième surface
+
+%Distance parcourue à l'intérieur de la lentille
+opd = sqrt((r.*G(r)-s).^2 + sag.^2);
+
+%Point composant la deuxième surface
+sag2 = opd.*cos(theta_2);
+s2 = r.*G(r) + opd.*sin(theta_2);
+
+%Rééchantillonnage de s2 pour le rendre constant
+sag2 = interp1(s2,sag2,linspace(0,max(s2),numel(s2)));
 
 end
 

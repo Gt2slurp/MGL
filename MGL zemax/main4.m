@@ -1,4 +1,5 @@
 % Création d'un grid sag adapté à l'exportation dans zemax.
+%Premier essai à deux surfaces
 clear
 %Configuration des paramètres
 run config.m
@@ -36,7 +37,7 @@ figure(3);mesh(sx,sy,sag2);
 
 
 %% Exportation sag direct
-path1 = 'C:\Users\Alex Côté\Documents\Zemax\Objects\Grid Files\sag_surf_1.dat';
-path2 = 'C:\Users\Alex Côté\Documents\Zemax\Objects\Grid Files\sag_surf_2.dat';
+path1 = 'C:\Users\Alex Côté\Documents\Zemax\Objects\Grid Files\sag_surf_1_couple.dat';
+path2 = 'C:\Users\Alex Côté\Documents\Zemax\Objects\Grid Files\sag_surf_2_couple.dat';
 zemax_sag_dat_2( path1, -sag1 , 2*max(s_profile1), 2*max(s_profile1));
 zemax_sag_dat_2( path2, sag2 , 2*max(s_profile2), 2*max(s_profile2));

@@ -8,7 +8,7 @@ sag2 = z.*ones(1,n_pts);
 
 %Vecteur s
 s1 = linspace(0,s_max,n_pts);
-s2 =  s1;
+s2 =  1.1.*s1;
 
 %Valeur initiale de l
 l = f + z.*(n2-n1)./n2;
@@ -33,18 +33,21 @@ while diff(k) > tol
     
     %Calcul des angles
     theta_1 = atan2(s1,l-sag1);
-    theta_2 = atan2(s2-s1,sag2-sag1);
+    theta_2 = atan2(s2-s1,sag2+sag1);
     
     %Calcul de s2
-    s2 = (sag2-sag1).*tan(theta_2) + s1;
+    s2 = (sag2+sag1).*tan(theta_2) + s1;
     
     %Calcul des normales aux interfaces
     theta_n1 = solve_snell(theta_1,theta_2, n1, n2);
     theta_n2 = solve_snell(theta_2,theta_3, n2, n1);
     
     %Calcul du sag (intégration de seulement la moitié pour la stabilité)
-    sag1 = sag1./2 + cumtrapz(s1,tan(theta_n1))./2;
-    sag2 = sag2./2 + cumtrapz(s2,tan(theta_n2))./2;
+    sag1 = sag1./3 + cumtrapz(s1,tan(theta_n1))./(2/3);
+    sag2 = sag2./3 + cumtrapz(s2,tan(theta_n2))./(2/3);
+    
+%     courbure = gradient(gradient(sag1));
+%     sag2 = sag2./2 + n_pts.*cumtrapz(s2,cumtrapz(s2,courbure));
     
     %Condition d'existance physique de la pièce
 %     if min(sag2+sag1) < 0
