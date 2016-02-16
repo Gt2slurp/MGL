@@ -30,6 +30,10 @@ d2 = abs(m2.*(f-sag_rep)' - s' + p2)./sqrt(1 + m2.^2);
 for k = 1:size(index1,2)
     theta_n_near1(:,k) = theta_n([index1(1,k) index1(2,k)]);
     theta_n_near2(:,k) = theta_n([index2(1,k) index2(2,k)]);
+    s_near1(:,k) = s(k,[index1(1,k) index1(2,k)]);
+    s_near2(:,k) = s(k,[index2(1,k) index2(2,k)]);
+    sag_near1(:,k) = sag_rep(k,[index1(1,k) index1(2,k)]);
+    sag_near2(:,k) = sag_rep(k,[index2(1,k) index2(2,k)]);
 end
 
 % %Calcul de l'angle moyen par interpolation au premier ordre
@@ -37,10 +41,7 @@ theta_n_moy1 = (d1(1,:).*theta_n_near1(1,:) + d2(1,:).*theta_n_near1(2,:))./(d1(
 theta_n_moy2 = (d1(2,:).*theta_n_near2(1,:) + d2(2,:).*theta_n_near2(2,:))./(d1(2,:)+d2(2,:));
 
 %Valeur de s et sag des points les plus proches
-s_near1 = s(:,[index1(1) index1(2)]);
-s_near2 = s(:,[index2(1) index2(2)]);
-sag_near1 = sag_rep(:,[index1(1) index1(2)]);
-sag_near2 = sag_rep(:,[index2(1) index2(2)]);
+
 
 s_moy1 = (d1(1,:).*s_near1(1,:) + d2(1,:).*s_near1(2,:))./(d1(1,:)+d2(1,:));
 s_moy2 = (d1(2,:).*s_near2(1,:) + d2(2,:).*s_near2(2,:))./(d1(2,:)+d2(2,:));
@@ -73,6 +74,6 @@ b2 = -a2.*(f-sag_moy2) + s_moy2;
 
 %Point de croisement des deux courbes
 x_croisement = (b2-b1)./(a1-a2);
-y_croisement = (a1.*b2-a2.*b1)./(a1-a2);
+y_croisement = (a1.*b2 - a2.*b1)./(a1-a2);
 end
 

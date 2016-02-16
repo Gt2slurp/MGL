@@ -54,7 +54,7 @@ while diff(k) > tol
     
 end
 
-[ x_croisement,y_croisement ] = courbure_champ_v2( r,s,sag,theta_n,f,n2 );
+[ x_croisement,y_croisement ] = courbure_champ_v3( r,s,sag,theta_n,f,n2 );
 
 end
 
