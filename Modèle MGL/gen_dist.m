@@ -1,5 +1,9 @@
 function [ Px, Py , delta_x, delta_y, x_mat, y_mat] = gen_dist( n,cx,cy,r1,r2,g1,g2,xmax,ymax,xmin,ymin )
 %GEN_DIST Summary of this function goes here
+%   Calcul de la déviation nécessaire pour chaque rayon pour que les
+%   paramètre de distortion soient respectée. La fonction de distortion est
+%   calculée directement pour chaque rayon.
+
 %   cx, cy, représente le centre de la zone de grandissement. r1 le rayon
 %   de la zone de grandissement. r2 le rayon de la zone de transition.
 

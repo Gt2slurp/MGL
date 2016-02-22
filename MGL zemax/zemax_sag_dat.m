@@ -1,6 +1,6 @@
 function [  ] = zemax_sag_dat( path, opd , taille_max_x, taille_max_y, n1, n2 )
 %ZEMAX_SAG_DAT Summary of this function goes here
-%   Detailed explanation goes here
+%   Exportation dans zemax d'un sag à partir d'un opd
 
 %Conversion from opd to sag
 delta_n = n2-n1;

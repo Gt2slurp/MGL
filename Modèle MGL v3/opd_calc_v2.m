@@ -1,6 +1,8 @@
 function [ opd ] = opd_calc_v2( opd,ray_fan,z,n )
 %OPD_CALC_V2 Summary of this function goes here
-%   Detailed explanation goes here
+%   Calcul de l'opd résiduel après le retrait du tilt par coéfficient de
+%   zernike. Les coéfficient de zernike, la distance de meilleur foyer,
+%   l'erreur RMS et le strelh ratio sont également calculé.
 
 opd.total = opd.tilt + opd.s;
 

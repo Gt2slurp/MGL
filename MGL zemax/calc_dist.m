@@ -1,6 +1,6 @@
 function [ dist,P] = calc_dist( G, r_max, n )
 %CALC_DIST Summary of this function goes here
-%   Detailed explanation goes here
+%   Calcul de la distortion créée par le grandissement.
 
 r = linspace(0,r_max,n);
 

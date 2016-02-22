@@ -2,6 +2,9 @@
 % Analyse du profil distortion généré et de la psf de différentes partie de
 % l'image.
 
+%Génération d'une surface complète et analyse d'une sous-section par
+%interpolation dans la surface totale.
+
 %% Génération du masque de phase
 
 lambda = 500E-9;
@@ -19,7 +22,7 @@ cx = 0;
 cy = 0;
 %Grandissement
 g1 = 1;
-g2 = 1;
+g2 = 2;
 %Rayon de la surface à grandir. Le rayon final sera r1*g.
 r1 = 0.1;
 %Rayon de la zone de redressement

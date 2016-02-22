@@ -1,6 +1,7 @@
 function [ ray_struct ] = complete_geometrie( ray_struct,z )
 %COMPLETE_GEOMETRIE Summary of this function goes here
-%   Detailed explanation goes here
+%   Complete le champ manquant de la structure de rayon. Une structure sans
+%   position en s ou img sera complété.
 
 %Si le champ img de la structure n'existe pas
 if ~isfield(ray_struct,'img')

@@ -1,6 +1,6 @@
 function [ opd ] = opd_tilt( x_psf,y_psf,z,f_number,n )
 %OPD_TILT Summary of this function goes here
-%   Detailed explanation goes here
+%   Calcul de l'opd généré par un certain tilt
 
 %Rayon chef correspondant
 [ ~, ~, theta_S, phy_S ] = geometrie( x_psf,y_psf,0,0,z );

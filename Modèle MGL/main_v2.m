@@ -1,3 +1,9 @@
+% Calcul d'un profil de surface à partir d'une courbe de distortion visée.
+% Analyse du profil distortion généré et de la psf de différentes partie de
+% l'image.
+
+%Génération de la sous-section de surface à analyser seulement.
+
 lambda = 500E-9;
 %Nombre de rayon simulé par axe
 n = 251;

@@ -1,5 +1,8 @@
 function [ Px, Py , delta_x, delta_y] = gen_dist( n,cx,cy,r1,r2,g1,g2,x_mat,y_mat )
 %GEN_DIST Summary of this function goes here
+%   Création de la déviation induite par la distortion dans le cas
+%   quadratique
+
 %   cx, cy, représente le centre de la zone de grandissement. r1 le rayon
 %   de la zone de grandissement. r2 le rayon de la zone de transition.
 

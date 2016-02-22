@@ -1,6 +1,6 @@
 function [ opd ] = opd_tilt( R,f_number,z,n )
 %OPD_TILT Summary of this function goes here
-%   Detailed explanation goes here
+%   Variation d'opd induite par l'angle d'un rayon
 
 %Angle du rayon Chef
 angle(1) = atan(R(1).img);

@@ -1,3 +1,6 @@
+%Fichier contenant la configuration du problème. En opération normale
+%seulement ce fichier devrait être modifié.
+
 lambda = 500E-9;
 %Échelle du système, correspond à la distance entre la pupille et l'image. 
 %En mètres. Les résultats sont convertis, l'ensemble des calcul sont fait

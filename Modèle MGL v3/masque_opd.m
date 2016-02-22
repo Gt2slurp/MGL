@@ -1,6 +1,6 @@
 function [ opd ] = masque_opd( rayon_chef,n)
 %OPD Summary of this function goes here
-%   Detailed explanation goes here
+%   Reconstuction du front d'onde par gradient inverse.
 
 %Dérivé partielle de l'OPD p.r. à x et y
 dopdx = tan(rayon_chef(1).angle_dev);

@@ -1,4 +1,9 @@
-%%
+% Version à un seul point. Main_loop devrait être utilisé à la place dans
+% la plupart des cas.
+
+% ANCIEN. LAISSÉ COMME RÉFÉRENCE.
+
+%
 clear
 lambda = 500E-9;
 %Nombre de rayon simulé par axe (toujours impair)

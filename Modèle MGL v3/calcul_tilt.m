@@ -1,6 +1,7 @@
 function [ opd] = calcul_tilt( opd,ray_fan,z,n )
 %CALCUL_TILT Summary of this function goes here
-%   Detailed explanation goes here
+%   Calcul du coefficient moyen de tilt par multiplication avec une matrice
+%   de pente unitaire.
 
 opd.total = opd.tilt + opd.s;
 

@@ -1,6 +1,7 @@
 function [ sag,l,s,diff,sag2,s2 ] = G2sag_v3( f,z,n1,n2,G,s_max, n_pts )
 %G2SAG_V2 Summary of this function goes here
-%   Detailed explanation goes here
+
+%   Boucle itérative de calcul de sag utilisé par main_double_correction
 
 %Valeur intiale de sag
 sag = z.*ones(1,n_pts);

@@ -1,6 +1,7 @@
 function [ sag,l,s,diff,x_croisement,y_croisement ] = G2sag_v2( f,z,n1,n2,G,s_max, n_pts )
 %G2SAG_V2 Summary of this function goes here
-%   Detailed explanation goes here
+%   Boucle itérative de calcul de sag utilisé par main_simple
+
 
 %Valeur intiale de sag
 sag = z.*ones(1,n_pts);
@@ -54,7 +55,8 @@ while diff(k) > tol
     
 end
 
-[ x_croisement,y_croisement ] = courbure_champ_v3( r,s,sag,theta_n,f,n2 );
+% Calcul de la courbure de champ (non fonctionnel)
+% [ x_croisement,y_croisement ] = courbure_champ_v3( r,s,sag,theta_n,f,n2 );
 
 end
 

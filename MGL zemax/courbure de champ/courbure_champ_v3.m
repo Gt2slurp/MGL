@@ -1,6 +1,6 @@
 function [ x_croisement,y_croisement ] = courbure_champ_v3( r,s,sag,theta_n,f,n )
 %COURBURE_CHAMP_V3 Summary of this function goes here
-%   Detailed explanation goes here
+%   Calcul de courbure par croisement des rayons légèrement marginaux
 
 %Pour chaque point sauf le premier et le dernier, on calcul l'angle d'un
 %rayon marginal ayant touché les deux point adjacent.

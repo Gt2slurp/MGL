@@ -1,6 +1,8 @@
 function [ opd] = opd_calc( opd,ray_fan,z,n )
 %CALCUL_TILT Summary of this function goes here
-%   Detailed explanation goes here
+%   Calcul de l'opd résiduel après le retrait du tilt
+
+%   UTILISER LA VERSION 2. CALCUL DU TILT IMPRÉCI.
 
 opd.total = opd.tilt + opd.s;
 

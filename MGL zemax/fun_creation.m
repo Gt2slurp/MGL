@@ -1,6 +1,7 @@
 function [ G ] = fun_creation( fun_type,r1,r2,g1,g2 )
 %FUN_CREATION Summary of this function goes here
-%   Detailed explanation goes here
+%   Création d'une fonction qui calcule la distortion en fonction de la
+%   position sur l'image.
 
 switch fun_type
     case 'gaussien'

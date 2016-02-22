@@ -1,5 +1,6 @@
 % Création d'un grid sag adapté à l'exportation dans zemax.
-%Premier essai à deux surfaces
+%Premier essai à deux surfaces. Résultat inconcluant dans la forme
+%actuelle.
 clear
 %Configuration des paramètres
 run config.m

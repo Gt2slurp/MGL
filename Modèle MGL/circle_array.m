@@ -1,6 +1,7 @@
 function [ array ] = circle_array( n )
 %CIRCLE_ARRAY Summary of this function goes here
-%   Detailed explanation goes here
+%   Création d'une matrice contenant un cercle de hauteur unitaire en son
+%   centre.
 
 vect = linspace(-1,1,n);
 [array_x,array_y] = ndgrid(vect);

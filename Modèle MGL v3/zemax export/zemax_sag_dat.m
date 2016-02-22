@@ -1,8 +1,10 @@
-function [  ] = zemax_sag_dat( path, opd , taille_max_x, taille_max_y, n1, n2, echelle_systeme )
+function [  ] = zemax_sag_dat( path, opd , taille_max_x, taille_max_y, n1, n2 )
 %ZEMAX_SAG_DAT Summary of this function goes here
-%   Detailed explanation goes here
+%   Exportation d'une surface de phase au format DAT pour utilisation comme
+%   surface de sag dans zemax. Conversion à partir de la différence d'indice 
+%   de réfraction.
 
-%Conversion from opd to sag in mm
+%Conversion d'opd à sag en mm
 delta_n = n2-n1;
 sag = opd./delta_n;
 

@@ -1,6 +1,11 @@
 function [ Px, Py , delta_x, delta_y ] = gen_dist_gauss( n,cx,cy,r1,r2,g1,g2,x_mat,y_mat )
 %GEN_DIST_GAUSS Summary of this function goes here
-%   Detailed explanation goes here
+%   Création de la déviation induite par la distortion dans le cas
+%   gaussien
+
+%   cx, cy, représente le centre de la zone de grandissement. (r1 + r2)/2
+%   la largeur à mi-hauteur de la gaussienne.
+
 
 Px = zeros(n);
 Py = Px;

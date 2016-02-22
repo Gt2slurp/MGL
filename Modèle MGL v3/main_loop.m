@@ -1,5 +1,7 @@
-% Loop de calcul de plusieurs positions
-%Ne sauvergarde pas les front d'ondes
+% Loop de calcul de plusieurs positions. Génère la courbure locale et
+% calcule la déterioration du front d'onde a chaque position. Ne 
+% sauvergarde pas les front d'ondes.
+
 clear
 
 %Paramètre de configuration de la simulation
@@ -67,8 +69,6 @@ for k = 1:numel(x)
         [ rayon_chef(1).dist, rayon_chef(2).dist , rayon_chef(1).delta, rayon_chef(2).delta] = gen_dist_gauss( n,cx,cy,r1,r2,g1,g2,rayon_chef(1).img,rayon_chef(2).img);
 
     end
-    %Illustration de la distortion
-
     
     %Calcul de l'angle de déviation
     [ rayon_chef ] = deviation( rayon_chef,z );
@@ -78,7 +78,7 @@ for k = 1:numel(x)
         case 'quadratique'
             [ opd.s ] = masque_opd( rayon_chef,n);
         case 'gaussien'
-            %[ opd.s ] = masque_opd_gauss( rayon_chef,g1,g2,r1,r2,n);
+            %[ opd.s ] = masque_opd_gauss( rayon_chef,g1,g2,r1,r2);
             [ opd.s ] = masque_opd( rayon_chef,n);
     end
     
@@ -88,16 +88,8 @@ for k = 1:numel(x)
     %Calcul de l'opd total et du tilt effectif
     opd = opd_calc_v2(opd,ray_fan,z,n);
     
-    % figure;subplot(2,2,1);mesh(opd.total);
-    % title('OPD total à la surface S');
-    % subplot(2,2,2);mesh(opd.st);
-    % title('OPD sans tilt à la surface S');
-    
     ratio_erreur_theta = atan(ray_fan(1).img)./opd.theta;
     ratio_erreur_phi = atan(ray_fan(2).img)./opd.phi;
-    
-%     opd.delta_x
-%     opd.delta_y
     
     %Calcul de la PSF
     pad_size = 2;
@@ -112,25 +104,13 @@ for k = 1:numel(x)
     %Cast en single pour sauver de la mémoire
     pupille.pad = padarray(cast(pupille.opd,'single'), pad_vect);
     
-    %Échelle de la pupille
-%     pupille.x = linspace((2*pad_size+1).*min(min(ray_fan(1).s)),(2*pad_size+1).*max(max(ray_fan(1).s)),n_tot);
-%     pupille.y = linspace((2*pad_size+1).*min(min(ray_fan(2).s)),(2*pad_size+1).*max(max(ray_fan(2).s)),n_tot);
-    
-    % subplot(2,2,3);imagesc(pupille.x,pupille.y,angle(pupille.pad));
-    % title('Phase du faisceau à S sans tilt');
-    
     %Propagation de la pupille
     psf.data = fft2(pupille.pad);
     psf.strehl_ratio = abs(psf.data(1,1)./sum(sum(abs(pupille.pad))));
     psf.data = fftshift(psf.data);
+    
     %Normalisation de la psf
     psf.norm = psf.data./(sum(sum(abs(pupille.pad))));
-    
-    %Échelle de la PSF
-%     psf.x = ((lambda*f_number))*linspace(-n/2,n/2,n_tot);
-%     psf.y = ((lambda*f_number))*linspace(-n/2,n/2,n_tot);
-    % subplot(2,2,4);imagesc(psf.x + opd.delta_x, psf.y + opd.delta_y,abs(psf.norm));
-    % title('PSF sans tilt');
     
     %Récupération des données
     save_struct.err_rms(k) = echelle_systeme.*opd.err_rms;

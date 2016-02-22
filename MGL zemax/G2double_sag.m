@@ -1,6 +1,7 @@
 function [ sag1, sag2,l,s1,s2,diff ] = G2double_sag( f,f2,z,n1,n2,G,s_max,hfov, n_pts  )
 %G2DOUBLE_SAG Summary of this function goes here
-%   Detailed explanation goes here
+
+%   Boucle itérative de calcul de sag utilisé par main_double_simultane
 
 %Valeurs intiale de sag
 sag1 = z.*ones(1,n_pts);

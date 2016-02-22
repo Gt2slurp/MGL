@@ -1,6 +1,6 @@
 function [  ] = zemax_sag_dat_2( path, sag , taille_max_x, taille_max_y)
 %ZEMAX_SAG_DAT Summary of this function goes here
-%   Detailed explanation goes here
+%   Exportation d'un sag dans zemax. Les données sont en mm.
 
 %Paramètre de la première ligne du fichier DAT
 %indicate the units of the data: 0 for mm, 1 for cm, 2 for in, and 3 for meters
